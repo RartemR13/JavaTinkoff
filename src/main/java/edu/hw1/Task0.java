@@ -9,6 +9,11 @@ public final class Task0 {
     private Task0() {
     }
 
+    /**
+     * Main: print "Hello, world!"
+     * @param args
+     *          arguments
+     */
     public static void main(String[] args) {
         LOGGER.info("Hello, world!");
     }
