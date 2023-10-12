@@ -64,7 +64,7 @@ class Task1Test {
     @DisplayName("Проверка формата (digit:digit)")
     void notTwoDigits() {
         // given
-        String time = "October:2023";
+        String time = "1.3:23";
 
         // when
         int seconds = Task1.minutesToSeconds(time);
