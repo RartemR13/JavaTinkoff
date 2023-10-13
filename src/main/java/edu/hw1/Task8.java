@@ -1,0 +1,96 @@
+package edu.hw1;
+
+public final class Task8 {
+    private Task8() {
+    }
+
+    static final int MIN_COORD_X = 0;
+    static final int MIN_COORD_Y = 0;
+    static final int MAX_COORD_X = 7;
+    static final int MAX_COORD_Y = 7;
+
+    private static boolean canMove(KnightsCoords from, KnightsCoords move) {
+        return from.getX() + move.getX() <= MAX_COORD_X
+                && from.getX() + move.getX() >= MIN_COORD_X
+                && from.getY() + move.getY() <= MAX_COORD_Y
+                && from.getY() + move.getY() >= MIN_COORD_Y;
+    }
+
+    private static boolean checkBoard(int[][] chessboard) {
+        if (chessboard.length != MAX_COORD_X + 1) {
+            return false;
+        }
+
+        for (int[] row : chessboard) {
+            if (row.length != MAX_COORD_Y + 1) {
+                return false;
+            }
+        }
+
+        for (int[] row : chessboard) {
+            for (int haveKnight : row) {
+                if (haveKnight < 0 || haveKnight > 1) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public static boolean knightBoardCapture(int[][] chessboard) throws IncorrectChessBoard {
+        if (!checkBoard(chessboard)) {
+            throw new IncorrectChessBoard();
+        }
+
+        for (int i = 0; i < chessboard.length; ++i) {
+            for (int j = 0; j < chessboard[i].length; ++j) {
+                if (chessboard[i][j] != 1) {
+                    continue;
+                }
+
+                var curCoords = new KnightsCoords(i, j);
+
+                for (var moveCoords : knightsMoves) {
+                    if (canMove(curCoords, moveCoords)) {
+                        var afterMove = curCoords.move(moveCoords);
+
+                        if (chessboard[afterMove.getX()][afterMove.getY()] == 1) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
+    record KnightsCoords(int x, int y) {
+        public int getX() {
+            return x;
+        }
+
+        public int getY() {
+            return y;
+        }
+
+        public KnightsCoords move(KnightsCoords moveCoords) {
+            return new KnightsCoords(x + moveCoords.getX(), y + moveCoords.getY());
+        }
+    }
+
+    static final KnightsCoords[] knightsMoves = {
+        new KnightsCoords(2, 1),
+        new KnightsCoords(-2, 1),
+        new KnightsCoords(2, -1),
+        new KnightsCoords(-2, -1),
+        new KnightsCoords(1, 2),
+        new KnightsCoords(-1, 2),
+        new KnightsCoords(1, -2),
+        new KnightsCoords(-1, -2),
+    };
+
+    public final static class IncorrectChessBoard extends Exception {
+    }
+}
