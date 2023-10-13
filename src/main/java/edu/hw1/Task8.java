@@ -9,6 +9,17 @@ public final class Task8 {
     static final int MAX_COORD_X = 7;
     static final int MAX_COORD_Y = 7;
 
+    static final KnightsCoords[] KNIGHTS_MOVES = {
+        new KnightsCoords(2, 1),
+        new KnightsCoords(-2, 1),
+        new KnightsCoords(2, -1),
+        new KnightsCoords(-2, -1),
+        new KnightsCoords(1, 2),
+        new KnightsCoords(-1, 2),
+        new KnightsCoords(1, -2),
+        new KnightsCoords(-1, -2),
+    };
+
     private static boolean canMove(KnightsCoords from, KnightsCoords move) {
         return from.getX() + move.getX() <= MAX_COORD_X
                 && from.getX() + move.getX() >= MIN_COORD_X
@@ -51,7 +62,7 @@ public final class Task8 {
 
                 var curCoords = new KnightsCoords(i, j);
 
-                for (var moveCoords : knightsMoves) {
+                for (var moveCoords : KNIGHTS_MOVES) {
                     if (canMove(curCoords, moveCoords)) {
                         var afterMove = curCoords.move(moveCoords);
 
@@ -79,17 +90,6 @@ public final class Task8 {
             return new KnightsCoords(x + moveCoords.getX(), y + moveCoords.getY());
         }
     }
-
-    static final KnightsCoords[] knightsMoves = {
-        new KnightsCoords(2, 1),
-        new KnightsCoords(-2, 1),
-        new KnightsCoords(2, -1),
-        new KnightsCoords(-2, -1),
-        new KnightsCoords(1, 2),
-        new KnightsCoords(-1, 2),
-        new KnightsCoords(1, -2),
-        new KnightsCoords(-1, -2),
-    };
 
     public final static class IncorrectChessBoard extends Exception {
     }
