@@ -10,12 +10,12 @@ public final class Task3 {
      * @return минимум массива array
      */
     private static int getMin(int[] array) {
-        int ret = array[0];
+        int currentMin = array[0];
         for (int number : array) {
-            ret = Math.min(number, ret);
+            currentMin = Math.min(number, currentMin);
         }
 
-        return ret;
+        return currentMin;
     }
 
     /**
@@ -24,12 +24,12 @@ public final class Task3 {
      * @return максимум массива array
      */
     private static int getMax(int[] array) {
-        int ret = array[0];
+        int currentMax = array[0];
         for (int number : array) {
-            ret = Math.max(number, ret);
+            currentMax = Math.max(number, currentMax);
         }
 
-        return ret;
+        return currentMax;
     }
 
     /**

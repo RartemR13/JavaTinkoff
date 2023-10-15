@@ -27,7 +27,7 @@ public final class Task8 {
                 && from.getY() + move.getY() >= MIN_COORD_Y;
     }
 
-    private static boolean checkBoard(int[][] chessboard) {
+    private static boolean isCorrectBoard(int[][] chessboard) {
         if (chessboard.length != MAX_COORD_X + 1) {
             return false;
         }
@@ -49,8 +49,8 @@ public final class Task8 {
         return true;
     }
 
-    public static boolean knightBoardCapture(int[][] chessboard) throws IncorrectChessBoard {
-        if (!checkBoard(chessboard)) {
+    public static boolean knightBoardCapture(int[][] chessboard) {
+        if (!isCorrectBoard(chessboard)) {
             throw new IncorrectChessBoard();
         }
 
@@ -62,19 +62,27 @@ public final class Task8 {
 
                 var curCoords = new KnightsCoords(i, j);
 
-                for (var moveCoords : KNIGHTS_MOVES) {
-                    if (canMove(curCoords, moveCoords)) {
-                        var afterMove = curCoords.move(moveCoords);
-
-                        if (chessboard[afterMove.getX()][afterMove.getY()] == 1) {
-                            return false;
-                        }
-                    }
+                if (isKnightCapturer(curCoords, chessboard)) {
+                    return false;
                 }
             }
         }
 
         return true;
+    }
+
+    private static boolean isKnightCapturer(KnightsCoords knightsCoords, int[][] chessBoard) {
+        for (var moveCoords : KNIGHTS_MOVES) {
+            if (canMove(knightsCoords, moveCoords)) {
+                var afterMove = knightsCoords.move(moveCoords);
+
+                if (chessBoard[afterMove.getX()][afterMove.getY()] == 1) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     record KnightsCoords(int x, int y) {
@@ -91,6 +99,6 @@ public final class Task8 {
         }
     }
 
-    public final static class IncorrectChessBoard extends Exception {
+    public final static class IncorrectChessBoard extends RuntimeException {
     }
 }

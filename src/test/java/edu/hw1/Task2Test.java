@@ -3,6 +3,8 @@ package edu.hw1;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class Task2Test {
     @Test
@@ -18,41 +20,33 @@ class Task2Test {
         assertThat(countDigits).isEqualTo(1);
     }
 
-    @Test
+    @ParameterizedTest
     @DisplayName("Натуральные числа")
-    void checkNatural() {
-        // given
-        int number1 = 100;
-        int number2 = 385848;
-        int number3 = 183723712;
-
+    @CsvSource({
+        "100, 3",
+        "385848, 6",
+        "183723712, 9"
+    })
+    void checkNatural(int number, int numberLength) {
         // then
-        int countDigits1 = Task2.countDigits(number1);
-        int countDigits2 = Task2.countDigits(number2);
-        int countDigits3 = Task2.countDigits(number3);
+        int countDigits = Task2.countDigits(number);
 
         // when
-        assertThat(countDigits1).isEqualTo(3);
-        assertThat(countDigits2).isEqualTo(6);
-        assertThat(countDigits3).isEqualTo(9);
+        assertThat(countDigits).isEqualTo(numberLength);
     }
 
-    @Test
+    @ParameterizedTest
     @DisplayName("Отрицательные числа")
-    void checkNegative() {
-        // given
-        int number1 = -100;
-        int number2 = -385848;
-        int number3 = -183723712;
-
+    @CsvSource({
+        "-100, 3",
+        "-385848, 6",
+        "-183723712, 9"
+    })
+    void checkNegative(int number, int countLength) {
         // then
-        int countDigits1 = Task2.countDigits(number1);
-        int countDigits2 = Task2.countDigits(number2);
-        int countDigits3 = Task2.countDigits(number3);
+        int countDigits1 = Task2.countDigits(number);
 
         // when
-        assertThat(countDigits1).isEqualTo(3);
-        assertThat(countDigits2).isEqualTo(6);
-        assertThat(countDigits3).isEqualTo(9);
+        assertThat(countDigits1).isEqualTo(countLength);
     }
 }

@@ -43,8 +43,8 @@ public final class Task6 {
      * @return количество шагов
      * @throws IncorrectInputNumber выбрасывается, если число number некорректно
      */
-    public static int countK(int number) throws IncorrectInputNumber {
-        if (!checkInputNumber(number)) {
+    public static int countK(int number) {
+        if (!isCorrectInputNumber(number)) {
             throw new IncorrectInputNumber();
         }
 
@@ -60,10 +60,10 @@ public final class Task6 {
      * @param number число, которое нужно проверить
      * @return true, если удовлетворяет, false иначе
      */
-    private static boolean checkInputNumber(int number) {
+    private static boolean isCorrectInputNumber(int number) {
         String numberStr = Integer.toString(number);
 
-        if (numberStr.length() != FOUR_DIGIT_NUMBER_LENGTH || numberStr.equals("1000")) {
+        if (numberStr.length() != FOUR_DIGIT_NUMBER_LENGTH || "1000".equals(numberStr)) {
             return false;
         }
 
@@ -78,6 +78,6 @@ public final class Task6 {
         return hasUnique;
     }
 
-    public static final class IncorrectInputNumber extends Exception {
+    public static final class IncorrectInputNumber extends RuntimeException {
     }
 }

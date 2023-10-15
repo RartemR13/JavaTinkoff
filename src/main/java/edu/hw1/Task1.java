@@ -8,9 +8,18 @@ public final class Task1 {
     private static final int SECONDS_IN_MINUTE_MAX_COUNT = 59;
     private static final int SECONDS_PER_MINUTE = 60;
 
+    private static boolean isCorrectPartitionPartsLen(String[] partition) {
+        return (!partition[0].isEmpty() && partition.length <= MINUTES_MAX_LEN)
+            && partition[1].length() == 2;
+    }
+
+    private static boolean isWithoutLeadZero(String time) {
+        return !time.startsWith("0") || "0:00".equals(time);
+    }
+
     /**
-     *  Возвращает количество секунд из формата записи minutes:seconds.
-     *  Для того, чтобы избежать возможного переполнения, длина minutes
+     * Возвращает количество секунд из формата записи minutes:seconds.
+     * Для того, чтобы избежать возможного переполнения, длина minutes
      * ограничивается в MINUTES_MAX_LEN символов.
      *
      * @param time строка в формате minutes:seconds
@@ -19,9 +28,8 @@ public final class Task1 {
     public static int minutesToSeconds(String time) {
         String[] timePartition = time.split(":");
         if (timePartition.length != 2
-            || (timePartition[0].isEmpty() || timePartition[1].length() != 2)
-            || (timePartition[0].length() > MINUTES_MAX_LEN)
-            || (timePartition[0].startsWith("0") && !(time.equals("0:00")))) {
+            || !isCorrectPartitionPartsLen(timePartition)
+            || !isWithoutLeadZero(time)) {
             return -1;
         }
 

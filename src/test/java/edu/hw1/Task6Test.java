@@ -28,11 +28,7 @@ class Task6Test {
         // when
         int[] answers = new int[correctAnswers.length];
         for (int i = 0; i < answers.length; ++i) {
-            try {
-                answers[i] = Task6.countK(array[i]);
-            } catch (Task6.IncorrectInputNumber e) {
-                assertThat(false).isTrue();
-            }
+            answers[i] = Task6.countK(array[i]);
         }
 
         // then
