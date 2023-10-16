@@ -1,7 +1,7 @@
 package edu.hw2;
 
 import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
 class Task3Test {
@@ -16,13 +16,12 @@ class Task3Test {
     void checkException() {
         var commandExecuter = new Task3.PopularCommandExecutor(new Task3.FaultyConnectionManager(), 1);
 
-        try {
+
+        assertThatThrownBy(() -> {
             for (int i = 0; i < 100; ++i) {
                 commandExecuter.updatePackages();
             }
-        } catch (Task3.ConnectionException e) {
-            assertThat(e).isInstanceOf(Task3.ConnectionException.class);
-            assertThat(e.getCause()).isInstanceOf(Task3.ConnectionException.class);
-        }
+        }).isInstanceOf(Task3.ConnectionException.class)
+            .hasCauseInstanceOf(Task3.ConnectionException.class);
     }
 }

@@ -1,11 +1,15 @@
 package edu.hw2;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public final class Task3 {
     private Task3() {
     }
 
-    private static final double NO_THROW_PROBABILITY = 0.3;
-    private static final double STABLE_PROBABILITY = 0.7;
+    private static final double NO_THROW_PROBABILITY = 0.2;
+    private static final double STABLE_PROBABILITY = 0.6;
+    private final static Logger LOGGER = LogManager.getLogger();
 
     public interface Connection extends AutoCloseable {
         void execute(String command);
@@ -85,7 +89,7 @@ public final class Task3 {
                     connection.execute(command);
                     return;
                 } catch (Exception e) {
-
+                    LOGGER.info("Exception " + e.getClass());
                 }
             }
 

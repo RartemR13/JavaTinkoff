@@ -11,8 +11,10 @@ class Task4Test {
     }
     @Test
     void checkSample() {
+        var correctCallingInfo = new Task4.CallingInfo("CallChecker", "getCallingInfo");
+
         var callingInfo = CallChecker.getCallingInfo();
 
-        assertThat(callingInfo).isEqualTo(new Task4.CallingInfo("CallChecker", "getCallingInfo"));
+        assertThat(callingInfo).isEqualTo(correctCallingInfo);
     }
 }

@@ -4,8 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import edu.hw2.Task1.Expr.*;
-
 class Task1Test {
     @Test
     @DisplayName("Примерный тест")
@@ -18,6 +16,8 @@ class Task1Test {
         var exp = new Exponent(mult, 2);
         var res = new Addition(exp, new Constant(1));
 
-        assertThat(res.evaluate()).isEqualTo(37.0);
+        double endValue = res.evaluate();
+
+        assertThat(endValue).isEqualTo(37.0);
     }
 }
