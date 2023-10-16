@@ -4,73 +4,56 @@ public final class Task2 {
     private Task2() {
     }
 
-    public sealed interface Expr {
-        double evaluate();
+    public static class Rectangle {
+        protected final int width;
+        protected final int height;
 
-        record Constant(double value) implements Expr {
-            @Override
-            public double evaluate() {
-                return value;
-            }
+        public Rectangle() {
+            width = 0;
+            height = 0;
+        }
 
-            public Constant(Expr expr) {
-                this(expr.evaluate());
+        public Rectangle(int height, int width) {
+            this.height = height;
+            this.width = width;
+        }
+
+        Rectangle setWidth(int width) {
+            return new Rectangle(this.height, width);
+        }
+
+        Rectangle setHeight(int height) {
+            return new Rectangle(height, this.width);
+        }
+
+        double area() {
+            return width * height;
+        }
+    }
+
+    public static final class Square extends Rectangle {
+        @Override
+        Rectangle setWidth(int width) {
+            if (width != this.width) {
+                return super.setWidth(width);
+            } else {
+                return new Square(width);
             }
         }
 
-        record Negate(double value) implements Expr {
-            @Override
-            public double evaluate() {
-                return -value;
-            }
-
-            public Negate(Expr expr) {
-                this(expr.evaluate());
-            }
+        public Square() {
         }
 
-        record Exponent(double base, double exponent) implements Expr {
-            @Override
-            public double evaluate() {
-                return Math.pow(base, exponent);
-            }
-
-            public Exponent(Expr base, double exponent) {
-                this(base.evaluate(), exponent);
-            }
-
-            public Exponent(Expr base, Expr exponent) {
-                this(base, exponent.evaluate());
-            }
+        public Square(int width) {
+            super(width, width);
         }
 
-        record Addition(double first, double second) implements Expr {
-            @Override
-            public double evaluate() {
-                return first + second;
-            }
-
-            public Addition(Expr first, double second) {
-                this(first.evaluate(), second);
-            }
-
-            public Addition(Expr first, Expr second) {
-                this(first, second.evaluate());
-            }
-        }
-
-        record Multiplication(double first, double second) implements Expr {
-            @Override
-            public double evaluate() {
-                return first * second;
-            }
-
-            public Multiplication(Expr first, double second) {
-                this(first.evaluate(), second);
-            }
-
-            public Multiplication(Expr first, Expr second) {
-                this(first, second.evaluate());
+        @Override
+        Rectangle setHeight(int height) {
+            if (height != this.height) {
+                return super.setHeight(height);
+            } else {
+                return new Square(height);
             }
         }
     }

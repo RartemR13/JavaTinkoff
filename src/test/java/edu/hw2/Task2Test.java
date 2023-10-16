@@ -1,23 +1,26 @@
 package edu.hw2;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 
-import edu.hw2.Task2.Expr.*;
+import edu.hw2.Task2.*;
+import org.junit.jupiter.params.provider.MethodSource;
 
 class Task2Test {
-    @Test
-    @DisplayName("Примерный тест")
-    void sampleTest() {
-        var two = new Constant(2);
-        var four = new Constant(4);
-        var negOne = new Negate(new Constant(1));
-        var sumTwoFour = new Addition(two, four);
-        var mult = new Multiplication(sumTwoFour, negOne);
-        var exp = new Exponent(mult, 2);
-        var res = new Addition(exp, new Constant(1));
+    static Arguments[] rectangles() {
+        return new Arguments[]{
+            Arguments.of(new Rectangle()),
+            Arguments.of(new Square())
+        };
+}
 
-        assertThat(res.evaluate()).isEqualTo(37.0);
+    @ParameterizedTest
+    @MethodSource("rectangles")
+    void rectangleArea(Rectangle rect) {
+        var newRect = rect.setWidth(20).setHeight(10);
+
+        assertThat(newRect.area()).isEqualTo(200.0);
     }
+
 }
