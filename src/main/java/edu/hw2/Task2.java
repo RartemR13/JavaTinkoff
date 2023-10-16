@@ -36,9 +36,8 @@ public final class Task2 {
         Rectangle setWidth(int width) {
             if (width != this.width) {
                 return super.setWidth(width);
-            } else {
-                return new Square(width);
             }
+            return new Square(width);
         }
 
         public Square() {
@@ -52,9 +51,8 @@ public final class Task2 {
         Rectangle setHeight(int height) {
             if (height != this.height) {
                 return super.setHeight(height);
-            } else {
-                return new Square(height);
             }
+            return new Square(height);
         }
     }
 }
