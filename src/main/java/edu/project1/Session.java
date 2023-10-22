@@ -1,6 +1,5 @@
 package edu.project1;
 
-import edu.project1.Results.CommonResult;
 import edu.project1.Results.Defeat;
 import edu.project1.Results.FailedGuess;
 import edu.project1.Results.SuccessfulGuess;
