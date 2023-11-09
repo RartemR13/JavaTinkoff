@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public final class Task4 {
-    private Task4(){
+    private Task4() {
     }
 
     public static boolean pswHaveSpecial(String psw) {
