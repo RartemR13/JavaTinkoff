@@ -11,7 +11,7 @@ class Task8Test {
     @CsvSource({
         "01011, true",
         "00, false",
-        "110, false"
+        "110, true"
     })
     void first(String str, boolean ans) {
         assertThat(Task8.check1(str)).isEqualTo(ans);
