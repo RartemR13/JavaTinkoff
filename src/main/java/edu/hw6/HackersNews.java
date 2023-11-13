@@ -12,7 +12,10 @@ import java.util.regex.Pattern;
 import static java.net.http.HttpClient.newHttpClient;
 import static java.time.temporal.ChronoUnit.SECONDS;
 
+@SuppressWarnings("MagicNumber")
 public final class HackersNews {
+    private HackersNews() {
+    }
 
     private static String getSimpleResponse(String reqUri) {
         URI uri;
@@ -40,6 +43,7 @@ public final class HackersNews {
 
         return response.body();
     }
+
     public static long[] hackerNewsTopStories() {
         var respBody = getSimpleResponse("https://hacker-news.firebaseio.com/v0/topstories.json");
 
@@ -71,6 +75,6 @@ public final class HackersNews {
 
         matcher.find();
         var stringWithColumns = matcher.group(1).split(",")[0];
-        return stringWithColumns.substring(1, stringWithColumns.length()-2);
+        return stringWithColumns.substring(1, stringWithColumns.length() - 2);
     }
 }
