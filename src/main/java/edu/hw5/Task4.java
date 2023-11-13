@@ -7,8 +7,9 @@ public final class Task4 {
     private Task4() {
     }
 
+    static Pattern pattern = Pattern.compile("\\w*[~!@#$%^&*|]\\w*");
+
     public static boolean pswHaveSpecial(String psw) {
-        Pattern pattern = Pattern.compile("\\w*[~!@#$%^&*|]\\w*");
         Matcher matcher = pattern.matcher(psw);
 
         return matcher.matches();
