@@ -8,28 +8,20 @@ public final class Slash3DateHandler extends DateHandler {
     @Override
     public Optional<LocalDate> handleRequest(String request) {
         String[] splited = request.split("/");
-        Optional<LocalDate> ret = Optional.empty();
-
-        boolean correct = true;
+        Optional<LocalDate> ret;
 
         if (splited.length != 3) {
-            correct = false;
-        } else {
-            try {
-                ret = Optional.of(LocalDate.of(
-                    Integer.parseInt(splited[2]),
-                    Integer.parseInt(splited[1]),
-                    Integer.parseInt(splited[0])
-                ));
-            } catch (Exception any) {
-                correct = false;
-            }
+            return (next != null) ? next.handleRequest(request) : Optional.empty();
         }
 
-        if (!correct) {
-            if (next != null) {
-                ret = next.handleRequest(request);
-            }
+        try {
+            ret = Optional.of(LocalDate.of(
+                Integer.parseInt(splited[2]),
+                Integer.parseInt(splited[1]),
+                Integer.parseInt(splited[0])
+            ));
+        } catch (Exception any) {
+            return (next != null) ? next.handleRequest(request) : Optional.empty();
         }
 
         return ret;
